@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerFragment">
+    <title>Методы ранжирования</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/bower_components/bootswatch-dist/css/bootstrap.min.css}"/>
+</head>
+<body>
+
+<div th:fragment="topNavBarFragment" class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand">Методы ранжирования</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Второй метод<span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Другой метод</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<th:block th:fragment="jsFragment">
+    <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/bower_components/bootswatch-dist/js/bootstrap.min.js}"></script>
+</th:block>
+</body>
+</html>

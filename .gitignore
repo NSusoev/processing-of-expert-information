@@ -1,4 +1,8 @@
 *.class
+target
+.idea
+bower_components
+*.iml
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

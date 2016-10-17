@@ -1,0 +1,21 @@
+{
+  "name": "pei app",
+  "homepage": "https://github.com/NSusoev/processing-of-expert-informtion",
+  "authors": [
+    "NSusoev <susoev.nikita@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootswatch-dist": "3.3.6-cosmo"
+  }
+}
