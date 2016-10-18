@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: headerFragment"></head>
+<body>
+    <div th:include="layout :: topNavBarFragment" class="navbar navbar-default"></div>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h2>Результат индивидуального ранжирования</h2>
+            <table class="table table-bordered">
+                <tr th:each="step : ${steps}">
+                    <td><strong th:text='${"Шаг " + step.getStepNumber()}'></strong></td>
+                    <td th:each="object : ${step.getRankedObjectList()}">
+                       <span th:text='${"a" + object.getInitialIndex()}'></span>
+                    </td>
+                    <td><strong th:text='${"Сравнений: " + step.getComparisonsCount()}'></strong></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div th:include="layout :: jsFragment"></div>
+</body>
+</html>
