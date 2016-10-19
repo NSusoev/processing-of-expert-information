@@ -1,7 +1,7 @@
 package app.controller;
 
-import app.model.PersonalRankingForm;
-import app.model.RankStep;
+import app.model.ranking.personal.PersonalRankingForm;
+import app.model.ranking.personal.RankStep;
 import app.service.PersonalRanking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

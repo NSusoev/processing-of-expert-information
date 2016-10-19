@@ -1,7 +1,7 @@
 package app.service;
 
-import app.model.RankStep;
-import app.model.RankedObject;
+import app.model.ranking.personal.RankStep;
+import app.model.ranking.personal.RankedObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
