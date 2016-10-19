@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: headerFragment"></head>
+<body>
+<div th:include="layout :: topNavBarFragment" class="navbar navbar-default"></div>
+
+<div class="container">
+    <form action="/second/calc" th:object="${personalRankingForm}" method="post">
+        <div class="form-group">
+            <label for="sequence">Данные для персонального ранжирования</label>
+            <input th:if="${sequence != null}" th:field="*{sequence}" type="text" class="form-control" id="sequence" value="${sequence}" placeholder="Оценки объектов через пробел"/>
+            <input th:if="${sequence == null}" th:field="*{sequence}" type="text" class="form-control" id="sequence" placeholder="Оценки объектов через пробел"/>
+            <div th:if="${error != null}" th:text="${error}" class="alert alert-danger" role="alert"></div>
+        </div>
+        <button type="submit" class="btn btn-default">Ранжировать</button>
+    </form>
+</div>
+
+<div th:include="layout :: jsFragment"></div>
+</body>
+</html>
