@@ -2,23 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="layout :: headerFragment"></head>
 <body>
-    <div th:include="layout :: topNavBarFragment" class="navbar navbar-default"></div>
+<div th:include="layout :: topNavBarFragment" class="navbar navbar-default"></div>
 
-    <div class="container">
-        <div class="jumbotron">
-            <h2>Результат индивидуального ранжирования</h2>
-            <table class="table table-bordered">
-                <tr th:each="step : ${steps}">
-                    <td><strong th:text='${"Шаг " + step.getStepNumber()}'></strong></td>
-                    <td th:each="object : ${step.getRankedObjectList()}">
-                       <span th:text='${"a" + object.getInitialIndex()}'></span>
-                    </td>
-                    <td><strong th:text='${"Сравнений: " + step.getComparisonsCount()}'></strong></td>
-                </tr>
-            </table>
-        </div>
-    </div>
+<div class="container">
+    <h2>Полученные данные</h2>
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <td th:each="index : ${#numbers.sequence(0, #lists.size(initial) - 1)}">
+                <strong th:text='${"a" + index}'></strong>
+            </td>
+        </tr>
+        <tr>
+            <td th:each="object: ${initial}">
+                <span th:text="${object}"></span>
+            </td>
+        </tr>
+    </table>
+    <h2>Результат индивидуального ранжирования</h2>
+    <table class="table table-bordered table-striped table-hover">
+        <tr th:each="step : ${steps}">
+            <td><strong th:text='${"Шаг " + step.getStepNumber()}'></strong></td>
+            <td th:each="object : ${step.getRankedObjectList()}">
+               <span th:text='${"a" + object.getInitialIndex()}'></span>
+            </td>
+            <td><strong th:text='${"Сравнений: " + step.getComparisonsCount()}'></strong></td>
+        </tr>
+    </table>
+    <a href="/second/form"><button class="btn btn-default">Вернуться к вводу данных</button></a>
+</div>
 
-    <div th:include="layout :: jsFragment"></div>
+<div th:include="layout :: jsFragment"></div>
 </body>
 </html>
