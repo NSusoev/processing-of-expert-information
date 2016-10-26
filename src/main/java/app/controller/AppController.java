@@ -5,7 +5,7 @@ import app.model.ranking.group.BordRankingResult;
 import app.model.ranking.group.Relation;
 import app.model.ranking.personal.PersonalRankingForm;
 import app.model.ranking.personal.RankStep;
-import app.service.PersonalRanking;
+import app.service.RankingMethods;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -58,7 +58,7 @@ public class AppController {
             return "second_method_form";
         }
 
-        List<RankStep> steps = PersonalRanking.RankBySecondMethod(sequence);
+        List<RankStep> steps = RankingMethods.RankBySecondMethod(sequence);
         model.addAttribute("initial", sequence);
         model.addAttribute("steps", steps);
         log.debug("EXIT");
@@ -100,7 +100,7 @@ public class AppController {
             bordRankingForm.getPersonalRankings().set(i, bordRankingForm.getPersonalRankings().get(i).replaceAll(",", ""));
         }
         log.debug("personal rankings after preprocessor = {}", bordRankingForm.getPersonalRankings());
-        BordRankingResult rankingResult = PersonalRanking.RankByBordMethod(bordRankingForm.getPersonalRankings());
+        BordRankingResult rankingResult = RankingMethods.RankByBordMethod(bordRankingForm.getPersonalRankings());
         model.addAttribute("individual_rankings", bordRankingForm.getPersonalRankings());
         model.addAttribute("ranking_result",rankingResult);
         model.addAttribute("experts_count", bordRankingForm.getExpertsCount());

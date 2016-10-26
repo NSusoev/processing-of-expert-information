@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PersonalRanking {
+public class RankingMethods {
 
-    private static final Logger log = LoggerFactory.getLogger(PersonalRanking.class);
+    private static final Logger log = LoggerFactory.getLogger(RankingMethods.class);
 
     // 2nd method of the personal ranking
     public static List<RankStep> RankBySecondMethod(List<Float> initial) {
