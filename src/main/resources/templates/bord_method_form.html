@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: headerFragment"></head>
+<body>
+<div th:fragment="topNavBarFragment" class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand">Методы ранжирования</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar">индивидуальное (второй метод)</span>
+                <span class="icon-bar">метод Борда</span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav">
+                <li><a href="/second/form">индивидуальное (второй метод)<span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="/bord/form">метод Борда</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Ранжирование методом Борда</h2>
+
+    <form th:if="${bord_result == null}" action="/bord/form" th:object="${bordRankingForm}" method="post">
+        <div class="form-group">
+            <label>Укажите количество экспертов</label>
+            <input th:if="${experts_count == null}" th:field="*{expertsCount}" type="text" class="form-control" id="experts_count" placeholder="Не менее одного"/>
+            <input th:if="${experts_count != null}" th:field="*{expertsCount}" value="${experts_count}" type="text" class="form-control" id="experts_count" placeholder="Не менее одного"/>
+            <label>Укажите количество альтернатив</label>
+            <input th:if="${objects_count == null}" th:field="*{objectsCount}" type="text" class="form-control" id="objects_count" placeholder="Не менее одной"/>
+            <input th:if="${objects_count != null}" th:field="*{objectsCount}" value="${objects_count}" type="text" class="form-control" id="objects_count" placeholder="Не менее одной"/>
+            <div th:if="${error != null}" th:text="${error}" class="alert alert-danger" role="alert"></div>
+        </div>
+        <button type="submit" class="btn btn-default">Далее</button>
+    </form>
+
+    <form th:if="${bord_result != null}" action="/bord/calc" th:object="${bordRankingForm}" method="post">
+        <h3>Укажите оценки экспертов</h3>
+        <div th:each="expert_index : ${#numbers.sequence(0, experts_count - 1)}" class="form-group form-inline">
+            <label th:text='${"Эксперт " + (expert_index + 1)}'></label>
+            <th:block th:each="object_index: ${#numbers.sequence(0, objects_count - 1)}">
+                <select th:field="*{personalRankings[__${expert_index}__]}" class="form-control">
+                    <th:block th:each="object_index: ${#numbers.sequence(0, objects_count - 1)}">
+                        <option th:value="${object_index}" th:text='${"a" + (object_index)}'></option>
+                    </th:block>
+                </select>
+
+                <select th:if="${object_index != (objects_count - 1)}" th:field="*{personalRankings[__${expert_index}__]}" class="form-control">
+                    <th:block th:each="relation: ${relations}">
+                        <option th:text='${relation}'></option>
+                    </th:block>
+                </select>
+            </th:block>
+        </div>
+        <button type="submit" class="btn btn-default">Ранжировать</button>
+        <input th:field="*{expertsCount}" value="${experts_count}" type="hidden" class="form-control" id="experts_count"/>
+        <input th:field="*{objectsCount}" value="${objects_count}" type="hidden" class="form-control" id="objects_count"/>
+    </form>
+</div>
+
+<div th:include="layout :: jsFragment"></div>
+</body>
+</html>
