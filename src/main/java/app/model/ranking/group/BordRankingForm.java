@@ -2,6 +2,7 @@ package app.model.ranking.group;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class BordRankingForm {
 
@@ -11,6 +12,7 @@ public class BordRankingForm {
     @NotNull
     @Min(1)
     private Integer objectsCount;
+    List<String> personalRankings;
 
     public Integer getExpertsCount() {
         return expertsCount;
@@ -28,11 +30,20 @@ public class BordRankingForm {
         this.objectsCount = objectsCount;
     }
 
+    public List<String> getPersonalRankings() {
+        return personalRankings;
+    }
+
+    public void setPersonalRankings(List<String> personalRankings) {
+        this.personalRankings = personalRankings;
+    }
+
     @Override
     public String toString() {
         return "BordRankingForm{" +
                 "expertsCount=" + expertsCount +
                 ", objectsCount=" + objectsCount +
+                ", personalRankings=" + personalRankings +
                 '}';
     }
 }
