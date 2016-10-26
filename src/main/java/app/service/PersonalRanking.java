@@ -93,7 +93,8 @@ public class PersonalRanking {
                             nextEqualRelationOperatorIndex += 2;
                             equalElementsQueueSize++;
 
-                            if (nextEqualRelationOperatorIndex + 1 > currentIndividualRanking.length() - 1) {
+                            if (nextEqualRelationOperatorIndex + 1 > currentIndividualRanking.length() - 1
+                                    || currentIndividualRanking.charAt(nextEqualRelationOperatorIndex) != Relation.EQUAL.toString().charAt(0)) {
                                 sumOfEqualElementsRanks += (nextEqualRelationOperatorIndex - 1) / 2;
                             }
                         }
@@ -128,7 +129,7 @@ public class PersonalRanking {
             sumRanks.add(new ObjectSumRank(i, sumRank));
         }
         log.debug("sum marks = {}", sumRanks);
-        result.setSumMarks(sumRanks);
+        result.setSumMarks(new ArrayList<>(sumRanks));
 
         Collections.sort(sumRanks);
         StringBuilder sb = new StringBuilder();
