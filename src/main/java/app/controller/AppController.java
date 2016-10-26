@@ -101,11 +101,12 @@ public class AppController {
         }
         log.debug("personal rankings after preprocessor = {}", bordRankingForm.getPersonalRankings());
         BordRankingResult rankingResult = PersonalRanking.RankByBordMethod(bordRankingForm.getPersonalRankings());
+        model.addAttribute("individual_rankings", bordRankingForm.getPersonalRankings());
         model.addAttribute("ranking_result",rankingResult);
         model.addAttribute("experts_count", bordRankingForm.getExpertsCount());
         model.addAttribute("objects_count", bordRankingForm.getObjectsCount());
         log.debug("EXIT");
-        return "bord_method_form";
+        return "bord_method_result";
 
     }
 

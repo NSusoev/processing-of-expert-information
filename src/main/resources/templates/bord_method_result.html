@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: headerFragment"></head>
+<body>
+<div th:fragment="topNavBarFragment" class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand">Методы ранжирования</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar">индивидуальное (второй метод)</span>
+                <span class="icon-bar">метод Борда</span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav">
+                <li><a href="/second/form">индивидуальное (второй метод)<span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="/bord/form">метод Борда</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Результат ранжирования методом Борда</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <td class="success">№ Эксперта</td>
+            <td class="success">Индивидуальные ранжирования</td>
+            <th:block th:each="index : ${#numbers.sequence(0, objects_count - 1)}">
+                <td class="success" th:text='${"a" + index}'></td>
+            </th:block>
+        </thead>
+        <tr th:each="expert_number : ${#numbers.sequence(0, #lists.size(individual_rankings) - 1)}">
+            <td th:text="${expert_number + 1}"></td>
+            <td th:text="${individual_rankings.get(expert_number)}"></td>
+            <th:block th:each="index : ${#numbers.sequence(0, objects_count - 1)}">
+                <td th:text="${ranking_result.getCalculatedRanksByExpertRanking().get(expert_number).get(index)}"></td>
+            </th:block>
+        </tr>
+        <tr>
+            <td>Сумма</td>
+            <td></td>
+            <th:block th:each="index : ${#numbers.sequence(0, objects_count - 1)}">
+                <td th:text="${ranking_result.getSumMarks().get(index).getSumRank()}"></td>
+            </th:block>
+        </tr>
+    </table>
+
+    <h2 th:text='${"Итог: " + ranking_result.getResultRanking()}'></h2>
+    <a href="/bord/form"><button class="btn btn-default">Вернуться в вводу данных</button></a>
+</div>
+
+<div th:include="layout :: jsFragment"></div>
+</body>
+</html>
