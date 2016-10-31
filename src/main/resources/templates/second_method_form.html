@@ -15,7 +15,14 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/second/form">индивидуальное (второй метод)<span class="sr-only">(current)</span></a></li>
+                <th:block th:if="${interactive == null}">
+                    <li class="active"><a href="/second/form">индивидуальное (второй метод)<span class="sr-only">(current)</span></a></li>
+                    <li><a href="/second/interactive/form">индивидуальное (второй метод) - интерактивный</a></li>
+                </th:block>
+                <th:block th:if="${interactive != null}">
+                    <li><a href="/second/form">индивидуальное (второй метод)<span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="/second/interactive/form">индивидуальное (второй метод) - интерактивный</a></li>
+                </th:block>
                 <li><a href="/bord/form">метод Борда</a></li>
             </ul>
         </div>
@@ -24,11 +31,20 @@
 
 <div class="container">
     <h2>Индивидуальное ранжирование</h2>
-    <form action="/second/calc" th:object="${personalRankingForm}" method="post">
+    <form th:if="${interactive == null}" action="/second/calc" th:object="${personalRankingForm}" method="post">
         <div class="form-group">
             <label for="sequence">Данные для индивидуального ранжирования</label>
             <input th:if="${sequence != null}" th:field="*{sequence}" type="text" class="form-control" id="sequence" value="${sequence}" placeholder="Оценки объектов через пробел"/>
             <input th:if="${sequence == null}" th:field="*{sequence}" type="text" class="form-control" id="sequence" placeholder="Оценки объектов через пробел"/>
+            <div th:if="${error != null}" th:text="${error}" class="alert alert-danger" role="alert"></div>
+        </div>
+        <button type="submit" class="btn btn-default">Ранжировать</button>
+    </form>
+    <form th:if="${interactive != null}" action="/second/interactive/calc" th:object="${interactivePersonalRankingForm}" method="post">
+        <div class="form-group">
+            <label for="objects_count">Данные для индивидуального интерактивного ранжирования</label>
+            <input th:if="${objects_count == null}" th:field="*{objectsCount}" type="text" class="form-control" id="objects_count" placeholder="Не менее одного"/>
+            <input th:if="${objects_count != null}" th:field="*{objectsCount}" value="${objects_count}" type="text" class="form-control" id="objects_count" placeholder="Не менее одного"/>
             <div th:if="${error != null}" th:text="${error}" class="alert alert-danger" role="alert"></div>
         </div>
         <button type="submit" class="btn btn-default">Ранжировать</button>
