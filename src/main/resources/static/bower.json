@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootswatch-dist": "3.3.6-cosmo"
+    "bootswatch-dist": "3.3.6-cosmo",
+    "sockjs-client": "~1.1.1"
   }
 }
