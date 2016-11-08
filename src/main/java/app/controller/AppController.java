@@ -3,7 +3,6 @@ package app.controller;
 import app.model.ranking.group.BordRankingForm;
 import app.model.ranking.group.BordRankingResult;
 import app.model.ranking.group.Relation;
-import app.model.ranking.personal.InteractivePersonalRankingForm;
 import app.model.ranking.personal.PersonalRankingForm;
 import app.model.ranking.personal.RankStep;
 import app.service.RankingMethods;
@@ -67,27 +66,8 @@ public class AppController {
     }
 
     @RequestMapping(value = "/second/interactive/form")
-    public String viewInteractiveSecondMethodForm(@Valid InteractivePersonalRankingForm interactivePersonalRankingForm,
-                                                  BindingResult bindingResult,
-                                                  Model model)  {
-        model.addAttribute("interactive", 1);
-        return "second_method_form";
-    }
-
-    @RequestMapping(value = "/second/interactive/calc", method = RequestMethod.POST)
-    public String doInteractiveSecondMethod(@Valid InteractivePersonalRankingForm interactivePersonalRankingForm,
-                                 BindingResult bindingResult,
-                                 Model model) {
-        log.debug("ENTER");
-        model.addAttribute("interactive", 1);
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("error", "Введите корректные данные для ранжирования");
-            return "second_method_form";
-        }
-
-        //List<RankStep> steps = RankingMethods.RankBySecondMethod();
-        log.debug("EXIT");
-        return "second_method_result";
+    public String viewInteractiveSecondMethodForm()  {
+        return "app";
     }
 
     @RequestMapping(value = "/bord/form")
@@ -134,6 +114,5 @@ public class AppController {
         return "bord_method_result";
 
     }
-
 
 }

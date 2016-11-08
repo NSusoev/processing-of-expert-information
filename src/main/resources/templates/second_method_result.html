@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<div th:if="${interactive == null}" class="container">
+<div class="container">
     <h2>Полученные данные</h2>
     <table class="table table-bordered table-striped table-hover">
         <tr>
@@ -48,10 +48,6 @@
         </tr>
     </table>
     <a href="/second/form"><button class="btn btn-default">Вернуться к вводу данных</button></a>
-</div>
-
-<div th:if="${interactive != null}" class="container">
-    <h2>Тут всё и будет</h2>
 </div>
 
 <div th:include="layout :: jsFragment"></div>
