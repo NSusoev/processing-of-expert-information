@@ -24,5 +24,17 @@
 
 <script th:src="@{/bower_components/angular/angular.min.js}"></script>
 <script th:src="@{/bower_components/angular-route/angular-route.min.js}"></script>
+<script th:src="@{/js/second_method_app/app.module.js}"></script>
+<script th:src="@{/js/second_method_app/app.config.js}"></script>
+
+<script th:src="@{/js/second_method_app/start-form/start-form.module.js}"></script>
+<script th:src="@{/js/second_method_app/start-form/start-form.component.js}"></script>
+<script th:src="@{/js/second_method_app/ranking-form/ranking-form.module.js}"></script>
+<script th:src="@{/js/second_method_app/ranking-form/ranking-form.component.js}"></script>
+
+<div class="container">
+    <h2>Интерактивное индивидуальное ранжирование</h2>
+    <ng-view></ng-view>
+</div>
 </body>
 </html>

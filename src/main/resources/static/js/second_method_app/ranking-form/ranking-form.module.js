@@ -1,0 +1,1 @@
+var rankingForm = angular.module('rankingForm', []);
