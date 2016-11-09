@@ -8,7 +8,7 @@ angular.
         when('/', {
           template: '<start-form></start-form>'
         }).
-        when('/ranking/:objectsCount/:newObjectNumber/:newObjectInsertIndex', {
+        when('/ranking/:objectsCount/', {
           template: '<ranking-form></ranking-form>'
         }).
         otherwise('/', {

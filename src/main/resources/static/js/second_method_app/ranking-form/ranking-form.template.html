@@ -1,3 +1,16 @@
-<input type="text" class="form-control" ng-model="$ctrl.objectsCount" placeholder="Не менее одной"/><br>
-<input type="text" class="form-control" ng-model="$ctrl.newObjectNumber" placeholder="Не менее одной"/><br>
-<input type="text" class="form-control" ng-model="$ctrl.newObjectInsertIndex" placeholder="Не менее одной"/><br>
+<h3 ng-hide="$ctrl.processIsCompleted">Альтернатива {{ "a" + $ctrl.newObjectNumber }} лучше чем {{ "a" + $ctrl.rankingResult[$ctrl.currentObjectNumberToCompare] }} ?</h3>
+<form>
+    <div class="form-inline">
+        <button ng-hide="$ctrl.processIsCompleted" ng-click="$ctrl.rankObject()" class="btn btn-default">Да</button>
+        <button ng-hide="$ctrl.processIsCompleted" ng-click="$ctrl.goToNextObjectToCompare()" class="btn btn-default">Нет</button>
+    </div>
+</form>
+<br>
+<div ng-hide="$ctrl.processIsCompleted" class="alert alert-info"><strong>Текущее состояние:</strong> {{ $ctrl.rankingResult }}; <strong>Количество сравнений:</strong> {{ $ctrl.comparisonsCount }} </div>
+
+<div ng-show="$ctrl.processIsCompleted" class="alert alert-success"><strong>Поздравляем!</strong> ранжирование завершено.</div>
+<div ng-show= "$ctrl.processIsCompleted" class="alert alert-info">
+    <p><strong>Результат ранжирования:</strong> {{ $ctrl.rankingResult }}</p>
+    <p><strong>Количество сравнений:</strong> {{ $ctrl.comparisonsCount }}</p>
+</div>
+<a href="form#!/"><button ng-show= "$ctrl.processIsCompleted" class="btn btn-default">Ранжировать еще</button></a>
