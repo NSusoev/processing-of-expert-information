@@ -15,14 +15,8 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
-                <th:block th:if="${interactive == null}">
-                    <li class="active"><a href="/second/form">индивидуальное (второй метод)<span class="sr-only">(current)</span></a></li>
-                    <li><a href="/second/interactive/form">индивидуальное (второй метод) - интерактивный</a></li>
-                </th:block>
-                <th:block th:if="${interactive != null}">
-                    <li><a href="/second/form">индивидуальное (второй метод)<span class="sr-only">(current)</span></a></li>
-                    <li class="active"><a href="/second/interactive/form">индивидуальное (второй метод) - интерактивный</a></li>
-                </th:block>
+                <li class="active"><a href="/second/form">индивидуальное (второй метод)<span class="sr-only">(current)</span></a></li>
+                <li><a href="/second/interactive/form">индивидуальное (второй метод) - интерактивный</a></li>
                 <li><a href="/bord/form">метод Борда</a></li>
             </ul>
         </div>
