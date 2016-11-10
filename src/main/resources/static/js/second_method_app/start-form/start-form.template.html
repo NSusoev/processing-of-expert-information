@@ -1,3 +1,7 @@
 <label>Укажите количество альтернатив</label>
-<input type="text" class="form-control" ng-model="$ctrl.objectsCount" placeholder="Не менее одной"/><br>
-<a href="form#!/ranking/{{ $ctrl.objectsCount }}"><button class="btn btn-default" ng-click="$ctrl.startRanking($ctrl.objectsCount)">Начать ранжирование</button></a>
+<input type="text" class="form-control" ng-model="$ctrl.objectsCount" placeholder="Не менее одной"/>
+<div ng-show="$ctrl.hasErrors" class="alert alert-danger"><strong>Ошибка!</strong> Введите корректные данные.</div>
+<br>
+<a ng-href="form#!/ranking/{{ $ctrl.objectsCount }}">
+    <button ng-click="$ctrl.validateForm($ctrl.objectsCount, $event)" class="btn btn-default">Начать ранжирование</button>
+</a>

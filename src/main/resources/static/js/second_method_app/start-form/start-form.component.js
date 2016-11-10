@@ -4,9 +4,16 @@ angular.
     templateUrl: '/js/second_method_app/start-form/start-form.template.html',
     controller: function StartFormController() {
       this.objectsCount = null;
+      this.hasErrors = false;
 
-      this.startRanking = function startRanking(objectsCount) {
-        console.log("objects count = " + objectsCount);
+      this.validateForm = function validateForm(objectsCount, $event) {
+        var count = parseInt(objectsCount);
+
+        if (!objectsCount.match(/^[1-9][0-9]*$/)) {
+          $event.preventDefault();
+          this.hasErrors = true;
+        } 
       }
+
     }
   });
