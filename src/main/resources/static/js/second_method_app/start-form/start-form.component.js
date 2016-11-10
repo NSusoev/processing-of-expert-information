@@ -7,8 +7,6 @@ angular.
       this.hasErrors = false;
 
       this.validateForm = function validateForm(objectsCount, $event) {
-        var count = parseInt(objectsCount);
-
         if (!objectsCount.match(/^[1-9][0-9]*$/)) {
           $event.preventDefault();
           this.hasErrors = true;
