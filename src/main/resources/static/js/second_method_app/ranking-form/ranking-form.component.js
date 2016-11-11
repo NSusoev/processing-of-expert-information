@@ -3,7 +3,7 @@ angular.
   component('rankingForm', {
     templateUrl: '/js/second_method_app/ranking-form/ranking-form.template.html',
     controller: ['$routeParams', function RankingFormController($routeParams) {
-      this.objectsCount = $routeParams.objectsCount;
+      this.objectsCount = parseInt($routeParams.objectsCount);
       this.newObjectInsertIndex = 0;
       this.rankingResult = [0];
       this.newObjectNumber = 1;
