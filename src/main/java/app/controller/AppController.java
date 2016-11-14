@@ -101,10 +101,6 @@ public class AppController {
                                         Model model) {
         log.debug("ENTER");
         log.debug("form data = {}", bordRankingForm);
-        for (int i = 0; i < bordRankingForm.getPersonalRankings().size(); i++) {
-            bordRankingForm.getPersonalRankings().set(i, bordRankingForm.getPersonalRankings().get(i).replaceAll(",", ""));
-        }
-        log.debug("personal rankings after preprocessor = {}", bordRankingForm.getPersonalRankings());
         BordRankingResult rankingResult = RankingMethods.RankByBordMethod(bordRankingForm.getPersonalRankings());
         model.addAttribute("individual_rankings", bordRankingForm.getPersonalRankings());
         model.addAttribute("ranking_result",rankingResult);

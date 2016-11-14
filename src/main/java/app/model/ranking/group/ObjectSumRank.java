@@ -1,6 +1,7 @@
 package app.model.ranking.group;
 
 public class ObjectSumRank implements Comparable {
+
     private int objectNumber;
     private float sumRank;
 

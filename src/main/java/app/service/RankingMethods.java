@@ -16,9 +16,12 @@ public class RankingMethods {
 
     private static final Logger log = LoggerFactory.getLogger(RankingMethods.class);
 
-    // 2nd method of the personal ranking
-    public static List<RankStep> RankBySecondMethod(List<Float> initial) {
+    public static List<RankStep> RankBySecondMethod(List<Float> initial) throws IllegalArgumentException {
         log.debug("ENTER");
+        if (initial == null) {
+            throw new IllegalArgumentException("initial must not be null");
+        }
+
         List<RankStep> steps = new ArrayList<>();
         List<RankedObject> result = new ArrayList<>();
         int stepNumber = 1;
@@ -51,20 +54,23 @@ public class RankingMethods {
             stepNumber++;
         }
 
-
         log.debug("result = {}", result);
         log.debug("steps = {}", steps);
         log.debug("EXIT");
         return steps;
     }
 
-    public static BordRankingResult RankByBordMethod(List<String> expertsRanking) {
+    public static BordRankingResult RankByBordMethod(List<String> expertsRanking) throws IllegalArgumentException {
         log.debug("ENTER");
+        if (expertsRanking == null) {
+            throw new IllegalArgumentException("expertsRanking must not be null");
+        }
+
+        bordMethodInputDataPreprocessor(expertsRanking);
         BordRankingResult result = new BordRankingResult();
-        List<ObjectSumRank> sumRanks = new ArrayList<>();
         List<List<Float>> calculatedRanks = new ArrayList<>();
-        for (int i = 0; i < expertsRanking.size(); i++) {
-            calculatedRanks.add(new ArrayList<>(Collections.nCopies(expertsRanking.get(i).length() / 2 + 1, 0f)));
+        for (String anExpertsRanking : expertsRanking) {
+            calculatedRanks.add(new ArrayList<>(Collections.nCopies(anExpertsRanking.length() / 2 + 1, 0f)));
         }
 
         for (int i = 0; i < expertsRanking.size(); i++) {
@@ -74,7 +80,6 @@ public class RankingMethods {
             while (elemIndex <= currentIndividualRanking.length() - 1) {
                 if (elemIndex + 1 <= currentIndividualRanking.length() - 1) {
                     if (currentIndividualRanking.charAt(elemIndex + 1) == Relation.BIGGER.toString().charAt(0)) {
-                        // TODO: обработать исключение
                         calculatedRanks.get(i).set(Character
                                 .getNumericValue(currentIndividualRanking.charAt(elemIndex)), (float)elemIndex / 2);
                         elemIndex += 2;
@@ -94,7 +99,8 @@ public class RankingMethods {
                             equalElementsQueueSize++;
 
                             if (nextEqualRelationOperatorIndex + 1 > currentIndividualRanking.length() - 1
-                                    || currentIndividualRanking.charAt(nextEqualRelationOperatorIndex) != Relation.EQUAL.toString().charAt(0)) {
+                                    || currentIndividualRanking.charAt(nextEqualRelationOperatorIndex)
+                                    != Relation.EQUAL.toString().charAt(0)) {
                                 sumOfEqualElementsRanks += (nextEqualRelationOperatorIndex - 1) / 2;
                             }
                         }
@@ -103,14 +109,12 @@ public class RankingMethods {
 
                         for (int equalElemIndex = firstEqualQueueElementIndex;
                              equalElemIndex <= lastEqualQueueElementIndex; equalElemIndex += 2) {
-                            // TODO: обработать исключение
                             calculatedRanks.get(i).set(Character.getNumericValue(currentIndividualRanking
                                     .charAt(equalElemIndex)), equalElementsRank);
                         }
                         elemIndex += equalElementsQueueSize * 2;
                     }
                 } else {
-                    // TODO: обработать исключение
                     calculatedRanks.get(i).set(Character
                             .getNumericValue(currentIndividualRanking.charAt(elemIndex)), (float)elemIndex / 2);
                     elemIndex++;
@@ -120,6 +124,23 @@ public class RankingMethods {
         log.debug("calculated ranks = {}", calculatedRanks);
         result.setCalculatedRanksByExpertRanking(calculatedRanks);
 
+        List<ObjectSumRank> sumRanks = calcSumRanks(calculatedRanks);
+        result.setSumMarks(new ArrayList<>(sumRanks));
+
+        Collections.sort(sumRanks);
+        result.setResultRanking(getResultStringRepresentation(sumRanks));
+        log.debug("result = {}", result);
+        log.debug("EXIT");
+        return result;
+    }
+
+    private static List<ObjectSumRank> calcSumRanks(List<List<Float>> calculatedRanks) throws IllegalArgumentException {
+        log.debug("ENTER");
+        if (calculatedRanks == null) {
+            throw new IllegalArgumentException("calculatedRanks must not be null");
+        }
+
+        List<ObjectSumRank> sumRanks = new ArrayList<>();
         for (int i = 0; i < calculatedRanks.get(0).size(); i++) {
             float sumRank = 0;
 
@@ -128,27 +149,47 @@ public class RankingMethods {
             }
             sumRanks.add(new ObjectSumRank(i, sumRank));
         }
-        log.debug("sum marks = {}", sumRanks);
-        result.setSumMarks(new ArrayList<>(sumRanks));
 
-        Collections.sort(sumRanks);
+        log.debug("sum marks = {}", sumRanks);
+        log.debug("EXIT");
+        return sumRanks;
+    }
+
+    private static String getResultStringRepresentation(List<ObjectSumRank> sumRanks) throws IllegalArgumentException {
+        log.debug("ENTER");
+        if (sumRanks == null) {
+            throw new IllegalArgumentException("sumRanks must not be null");
+        }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < sumRanks.size(); i++) {
             sb.append("a");
             sb.append(sumRanks.get(i).getObjectNumber());
-            sb.append(" ");
 
             if (i + 1 < sumRanks.size() - 1 && sumRanks.get(i).getSumRank() == sumRanks.get(i + 1).getSumRank()) {
-               sb.append("~ ");
+                sb.append(" ~ ");
             } else if (i < sumRanks.size() - 1) {
-                sb.append("> ");
+                sb.append(" > ");
             }
         }
+
         log.debug("result ranking = {}", sb.toString());
-        result.setResultRanking(sb.toString());
-        log.debug("result = {}", result);
         log.debug("EXIT");
-        return result;
+        return sb.toString();
+    }
+
+    private static void bordMethodInputDataPreprocessor(List<String> expertsRanking) throws IllegalArgumentException {
+        log.debug("ENTER");
+        if (expertsRanking == null) {
+            throw new IllegalArgumentException("expertsRanking must not be null");
+        }
+
+        for (int i = 0; i < expertsRanking.size(); i++) {
+            expertsRanking.set(i, expertsRanking.get(i).replaceAll(",", ""));
+        }
+
+        log.debug("personal rankings after preprocessing = {}", expertsRanking);
+        log.debug("EXIT");
     }
 
 }
